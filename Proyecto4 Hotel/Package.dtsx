@@ -11,8 +11,8 @@
   DTS:LocaleID="18442"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="20"
-  DTS:VersionGUID="{83829A1D-6962-43A5-AA2A-39A2D596A038}">
+  DTS:VersionBuild="29"
+  DTS:VersionGUID="{F5F9A182-16A9-4DE0-8726-C99DF7617D12}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -74,6 +74,28 @@
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectionString="Data Source=FernandaGomez;Initial Catalog=Sistema_Hotel;Integrated Security=True;Trust Server Certificate=True;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LAPTOP-5IV873GV\SQLEXPRESS.DW Sistema_Hotel]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{7C0CAA6E-C018-4B89-A4E8-DE368F88DE5D}"
+      DTS:ObjectName="LAPTOP-5IV873GV\SQLEXPRESS.DW Sistema_Hotel">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=LAPTOP-5IV873GV\SQLEXPRESS;Initial Catalog=DW Sistema_Hotel;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{7C0CAA6E-C018-4B89-A4E8-DE368F88DE5D}LAPTOP-5IV873GV\SQLEXPRESS.DW Sistema_Hotel;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LAPTOP-5IV873GV\SQLEXPRESS.Sistema_Hotel]"
+      DTS:CreationName="ADO.NET:Microsoft.Data.SqlClient.SqlConnection, Microsoft.Data.SqlClient, Version=6.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5"
+      DTS:DTSID="{F0E1130C-431B-400E-8640-504E0A123265}"
+      DTS:ObjectName="LAPTOP-5IV873GV\SQLEXPRESS.Sistema_Hotel">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=LAPTOP-5IV873GV\SQLEXPRESS;Initial Catalog=Sistema_Hotel;Integrated Security=True;Trust Server Certificate=True;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -715,6 +737,360 @@ FROM Sistema_Hotel.dbo.Compras</property>
               endId="Package\DIM Compras\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]"
               name="Salida de origen de ADO NET"
               startId="Package\DIM Compras\Origen de ADO NET.Outputs[Salida de origen de ADO NET]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DIM Detalle_Compra"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{900F65A1-D3E0-44E0-919A-F3B14A23767A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DIM Detalle_Compra"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DIM Detalle_Compra\Destino de ADO NET"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Carga datos en una base de datos compatible con ADO.NET que use una vista o tabla de base de datos. Se cargan datos en una tabla nueva o existente. Por ejemplo, se usa un proveedor ADO.NET para ODBC para cargar datos en un destino ODBC.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;2"
+              description="Carga datos en una base de datos compatible con ADO.NET que use una vista o tabla de base de datos. Se cargan datos en una tabla nueva o existente. Por ejemplo, se usa un proveedor ADO.NET para ODBC para cargar datos en un destino ODBC."
+              name="Destino de ADO NET"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Nombre de la tabla de la base de datos de destino."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."Hechos_Compras"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifique el número de filas por lote. El valor predeterminado es 0, que utiliza el mismo tamaño que el búfer interno de SSIS. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Especifica si se debe usar la interfaz SqlBulkCopy para mejorar el rendimiento de las operaciones de inserción masiva. No todos los proveedores admiten esta interfaz."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DIM Detalle_Compra\Destino de ADO NET.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-5IV873GV\SQLEXPRESS.Sistema_Hotel]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-5IV873GV\SQLEXPRESS.Sistema_Hotel]"
+                  description="Administrador de conexiones administrado"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de ADO NET">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[IdCompra]"
+                      cachedDataType="i4"
+                      cachedName="IdCompra"
+                      externalMetadataColumnId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[IdCompra]"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[IdCompra]" />
+                    <inputColumn
+                      refId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Cantidad]"
+                      cachedDataType="i4"
+                      cachedName="Cantidad"
+                      externalMetadataColumnId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Cantidad]"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Cantidad]" />
+                    <inputColumn
+                      refId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Precio]"
+                      cachedDataType="numeric"
+                      cachedName="Precio"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Precio]"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Precio]" />
+                    <inputColumn
+                      refId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Subtotal]"
+                      cachedDataType="numeric"
+                      cachedName="Subtotal"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Subtotal]"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Subtotal]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[IdCompra]"
+                      dataType="i4"
+                      name="IdCompra" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[FechaCompra]"
+                      dataType="dbTimeStamp"
+                      name="FechaCompra" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[NombreProducto]"
+                      dataType="wstr"
+                      length="100"
+                      name="NombreProducto" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[NombreProveedor]"
+                      dataType="wstr"
+                      length="100"
+                      name="NombreProveedor" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Cantidad]"
+                      dataType="i4"
+                      name="Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Precio]"
+                      dataType="numeric"
+                      name="Precio"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Subtotal]"
+                      dataType="numeric"
+                      name="Subtotal"
+                      precision="10"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DIM Detalle_Compra\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de ADO NET"
+                  synchronousInputId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DIM Detalle_Compra\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DIM Detalle_Compra\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DIM Detalle_Compra\Origen de ADO NET"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server."
+              name="Origen de ADO NET"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+    IdCompra,
+    IdProducto,
+    Cantidad,
+    Precio,
+    Subtotal
+FROM 
+    Detalle_Compra</property>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si se debe permitir que columnas externas que no sean de cadenas se conviertan implícitamente en cadenas en las columnas de salida."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="Nombre de la tabla de la base de datos de origen."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especificar el modo de recuperar información de columnas externas"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DIM Detalle_Compra\Origen de ADO NET.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-5IV873GV\SQLEXPRESS.Sistema_Hotel]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-5IV873GV\SQLEXPRESS.Sistema_Hotel]"
+                  description="Administrador de conexiones administrado"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET]"
+                  name="Salida de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[IdCompra]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[IdCompra]"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[IdCompra]"
+                      name="IdCompra"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[IdProducto]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[IdProducto]"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[IdProducto]"
+                      name="IdProducto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Cantidad]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[Cantidad]"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Cantidad]"
+                      name="Cantidad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Precio]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[Precio]"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Precio]"
+                      name="Precio"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Subtotal]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[Subtotal]"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Subtotal]"
+                      name="Subtotal"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[IdCompra]"
+                      dataType="i4"
+                      name="IdCompra" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[IdProducto]"
+                      dataType="i4"
+                      name="IdProducto" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[Cantidad]"
+                      dataType="i4"
+                      name="Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[Precio]"
+                      dataType="numeric"
+                      name="Precio"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[Subtotal]"
+                      dataType="numeric"
+                      name="Subtotal"
+                      precision="10"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[IdCompra]"
+                      dataType="i4"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[IdCompra]"
+                      name="IdCompra" />
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[IdProducto]"
+                      dataType="i4"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[IdProducto]"
+                      name="IdProducto" />
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[Cantidad]"
+                      dataType="i4"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[Cantidad]"
+                      name="Cantidad" />
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[Precio]"
+                      dataType="numeric"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[Precio]"
+                      name="Precio"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[Subtotal]"
+                      dataType="numeric"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[Subtotal]"
+                      name="Subtotal"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DIM Detalle_Compra.Paths[Salida de origen de ADO NET]"
+              endId="Package\DIM Detalle_Compra\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]"
+              name="Salida de origen de ADO NET"
+              startId="Package\DIM Detalle_Compra\Origen de ADO NET.Outputs[Salida de origen de ADO NET]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -1471,6 +1847,339 @@ from [dbo].[Habitaciones]</property>
               endId="Package\DIM Habitaciones\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]"
               name="Salida de origen de ADO NET"
               startId="Package\DIM Habitaciones\Origen de ADO NET.Outputs[Salida de origen de ADO NET]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DIM Producto"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3E058600-52B8-4B0A-B62F-9476D7E6540E}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DIM Producto"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DIM Producto\Destino de ADO NET"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Carga datos en una base de datos compatible con ADO.NET que use una vista o tabla de base de datos. Se cargan datos en una tabla nueva o existente. Por ejemplo, se usa un proveedor ADO.NET para ODBC para cargar datos en un destino ODBC.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;2"
+              description="Carga datos en una base de datos compatible con ADO.NET que use una vista o tabla de base de datos. Se cargan datos en una tabla nueva o existente. Por ejemplo, se usa un proveedor ADO.NET para ODBC para cargar datos en un destino ODBC."
+              name="Destino de ADO NET"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Nombre de la tabla de la base de datos de destino."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."Hechos_Compras"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifique el número de filas por lote. El valor predeterminado es 0, que utiliza el mismo tamaño que el búfer interno de SSIS. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Especifica si se debe usar la interfaz SqlBulkCopy para mejorar el rendimiento de las operaciones de inserción masiva. No todos los proveedores admiten esta interfaz."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DIM Producto\Destino de ADO NET.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-5IV873GV\SQLEXPRESS.Sistema_Hotel]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-5IV873GV\SQLEXPRESS.Sistema_Hotel]"
+                  description="Administrador de conexiones administrado"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DIM Producto\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de ADO NET">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DIM Producto\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[NombreProveedor]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="NombreProveedor"
+                      externalMetadataColumnId="Package\DIM Producto\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[NombreProveedor]"
+                      lineageId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[NombreProveedor]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DIM Producto\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[IdCompra]"
+                      dataType="i4"
+                      name="IdCompra" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Producto\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[FechaCompra]"
+                      dataType="dbTimeStamp"
+                      name="FechaCompra" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Producto\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[NombreProducto]"
+                      dataType="wstr"
+                      length="100"
+                      name="NombreProducto" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Producto\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[NombreProveedor]"
+                      dataType="wstr"
+                      length="100"
+                      name="NombreProveedor" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Producto\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Cantidad]"
+                      dataType="i4"
+                      name="Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Producto\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Precio]"
+                      dataType="numeric"
+                      name="Precio"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Producto\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Subtotal]"
+                      dataType="numeric"
+                      name="Subtotal"
+                      precision="10"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DIM Producto\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de ADO NET"
+                  synchronousInputId="Package\DIM Producto\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DIM Producto\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DIM Producto\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DIM Producto\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DIM Producto\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DIM Producto\Origen de ADO NET"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server."
+              name="Origen de ADO NET"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+    IdProveedor,
+    Empresa AS NombreProveedor,
+    Contacto,
+    Telefono,
+    Direccion
+FROM 
+    Proveedores</property>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si se debe permitir que columnas externas que no sean de cadenas se conviertan implícitamente en cadenas en las columnas de salida."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="Nombre de la tabla de la base de datos de origen."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especificar el modo de recuperar información de columnas externas"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DIM Producto\Origen de ADO NET.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-5IV873GV\SQLEXPRESS.Sistema_Hotel]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-5IV873GV\SQLEXPRESS.Sistema_Hotel]"
+                  description="Administrador de conexiones administrado"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET]"
+                  name="Salida de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[IdProveedor]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[IdProveedor]"
+                      lineageId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[IdProveedor]"
+                      name="IdProveedor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[NombreProveedor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[NombreProveedor]"
+                      length="100"
+                      lineageId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[NombreProveedor]"
+                      name="NombreProveedor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Contacto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[Contacto]"
+                      length="100"
+                      lineageId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Contacto]"
+                      name="Contacto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Telefono]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[Telefono]"
+                      length="15"
+                      lineageId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Telefono]"
+                      name="Telefono"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Direccion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[Direccion]"
+                      length="150"
+                      lineageId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].Columns[Direccion]"
+                      name="Direccion"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[IdProveedor]"
+                      dataType="i4"
+                      name="IdProveedor" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[NombreProveedor]"
+                      dataType="wstr"
+                      length="100"
+                      name="NombreProveedor" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[Contacto]"
+                      dataType="wstr"
+                      length="100"
+                      name="Contacto" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[Telefono]"
+                      dataType="wstr"
+                      length="15"
+                      name="Telefono" />
+                    <externalMetadataColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET].ExternalColumns[Direccion]"
+                      dataType="wstr"
+                      length="150"
+                      name="Direccion" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[IdProveedor]"
+                      dataType="i4"
+                      lineageId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[IdProveedor]"
+                      name="IdProveedor" />
+                    <outputColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[NombreProveedor]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[NombreProveedor]"
+                      name="NombreProveedor" />
+                    <outputColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[Contacto]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[Contacto]"
+                      name="Contacto" />
+                    <outputColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[Telefono]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[Telefono]"
+                      name="Telefono" />
+                    <outputColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[Direccion]"
+                      dataType="wstr"
+                      length="150"
+                      lineageId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[Direccion]"
+                      name="Direccion" />
+                    <outputColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DIM Producto.Paths[Salida de origen de ADO NET]"
+              endId="Package\DIM Producto\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]"
+              name="Salida de origen de ADO NET"
+              startId="Package\DIM Producto\Origen de ADO NET.Outputs[Salida de origen de ADO NET]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -2272,35 +2981,43 @@ ORDER BY CantidadReservaciones DESC, Estado;</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="136,42"
+          Size="136,41.6"
           Id="Package\DIM clientes"
           TopLeft="102.499994399647,290.333331314392" />
         <NodeLayout
-          Size="197,42"
+          Size="147.2,41.6"
+          Id="Package\DIM Compras"
+          TopLeft="97,547" />
+        <NodeLayout
+          Size="196.8,41.6"
           Id="Package\DIM Detalle_Reservacion"
           TopLeft="84,108" />
         <NodeLayout
-          Size="196,43"
+          Size="196,43.2"
           Id="Package\DIM Habitaciones"
           TopLeft="81,203" />
         <NodeLayout
-          Size="154,42"
+          Size="164,41.6"
+          Id="Package\DIM Proveedores"
+          TopLeft="98,462" />
+        <NodeLayout
+          Size="153.6,41.6"
           Id="Package\DIM reservacion"
           TopLeft="99.1666612484391,371.59999750495" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
-          TopLeft="180.75,150">
+          TopLeft="180.7,149.6">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,53"
+              EndConnector="0,53.4"
               Start="0,0"
-              End="0,45.5">
+              End="0,45.9">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,45.5" />
+                    End="0,45.9" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2365,14 +3082,6 @@ ORDER BY CantidadReservaciones DESC, Estado;</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="164,42"
-          Id="Package\DIM Proveedores"
-          TopLeft="98,462" />
-        <NodeLayout
-          Size="147,42"
-          Id="Package\DIM Compras"
-          TopLeft="97,547" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 3]"
           TopLeft="178.08333062422,413.59999750495">
@@ -2429,6 +3138,14 @@ ORDER BY CantidadReservaciones DESC, Estado;</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="175.2,41.6"
+          Id="Package\DIM Detalle_Compra"
+          TopLeft="84.9999953558049,620.933331151671" />
+        <NodeLayout
+          Size="141.6,41.6"
+          Id="Package\DIM Producto"
+          TopLeft="100.833327824043,680.133330211507" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -2499,6 +3216,60 @@ ORDER BY CantidadReservaciones DESC, Estado;</property>
     </Properties>
   </PipelineComponentMetadata>
   <TaskHost
+    design-time-name="Package\DIM Compras">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="179,42"
+          Id="Package\DIM Compras\Origen de ADO NET"
+          TopLeft="185,89" />
+        <NodeLayout
+          Size="183,42"
+          Id="Package\DIM Compras\Destino de ADO NET"
+          TopLeft="523,93" />
+        <EdgeLayout
+          Id="Package\DIM Compras.Paths[Salida de origen de ADO NET]"
+          TopLeft="364,112">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="159,0"
+              Start="0,0"
+              End="151.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="151.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DIM Compras\Destino de ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DIM Compras\Origen de ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
     design-time-name="Package\DIM Detalle_Reservacion">
     <LayoutInfo>
       <GraphLayout
@@ -2558,27 +3329,27 @@ ORDER BY CantidadReservaciones DESC, Estado;</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="172,42"
+          Size="172.8,41.6"
           Id="Package\DIM Habitaciones\Origen de ADO NET"
           TopLeft="97,136" />
         <NodeLayout
-          Size="176,42"
+          Size="176,41.6"
           Id="Package\DIM Habitaciones\Destino de ADO NET"
           TopLeft="350,137" />
         <EdgeLayout
           Id="Package\DIM Habitaciones.Paths[Salida de origen de ADO NET]"
-          TopLeft="269,157.5">
+          TopLeft="269.8,157.3">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="81,0"
+              EndConnector="80.2,0"
               Start="0,0"
-              End="73.5,0">
+              End="72.7,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="73.5,0" />
+                    End="72.7,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2600,6 +3371,60 @@ ORDER BY CantidadReservaciones DESC, Estado;</property>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\DIM Habitaciones\Origen de ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\DIM Proveedores">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="179,42"
+          Id="Package\DIM Proveedores\Origen de ADO NET"
+          TopLeft="137,124" />
+        <NodeLayout
+          Size="183,42"
+          Id="Package\DIM Proveedores\Destino de ADO NET"
+          TopLeft="455,131" />
+        <EdgeLayout
+          Id="Package\DIM Proveedores.Paths[Salida de origen de ADO NET]"
+          TopLeft="316,148.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="139,0"
+              Start="0,0"
+              End="131.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="131.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DIM Proveedores\Destino de ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DIM Proveedores\Origen de ADO NET">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2667,32 +3492,32 @@ ORDER BY CantidadReservaciones DESC, Estado;</property>
     </Properties>
   </PipelineComponentMetadata>
   <TaskHost
-    design-time-name="Package\DIM Proveedores">
+    design-time-name="Package\DIM Detalle_Compra">
     <LayoutInfo>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="179,42"
-          Id="Package\DIM Proveedores\Origen de ADO NET"
-          TopLeft="137,124" />
+          Size="172.8,41.6"
+          Id="Package\DIM Detalle_Compra\Origen de ADO NET"
+          TopLeft="140.999997898936,84.9999987334013" />
         <NodeLayout
-          Size="183,42"
-          Id="Package\DIM Proveedores\Destino de ADO NET"
-          TopLeft="455,131" />
+          Size="176.8,41.6"
+          Id="Package\DIM Detalle_Compra\Destino de ADO NET"
+          TopLeft="364.999994561076,86.999998703599" />
         <EdgeLayout
-          Id="Package\DIM Proveedores.Paths[Salida de origen de ADO NET]"
-          TopLeft="316,148.5">
+          Id="Package\DIM Detalle_Compra.Paths[Salida de origen de ADO NET]"
+          TopLeft="313.799997898936,106.7999987185">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="139,0"
+              EndConnector="51.1999966621401,0"
               Start="0,0"
-              End="131.5,0">
+              End="43.6999966621401,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="131.5,0" />
+                    End="43.6999966621401,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2705,32 +3530,32 @@ ORDER BY CantidadReservaciones DESC, Estado;</property>
     </LayoutInfo>
   </TaskHost>
   <TaskHost
-    design-time-name="Package\DIM Compras">
+    design-time-name="Package\DIM Producto">
     <LayoutInfo>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="179,42"
-          Id="Package\DIM Compras\Origen de ADO NET"
-          TopLeft="185,89" />
+          Size="172.8,41.6"
+          Id="Package\DIM Producto\Origen de ADO NET"
+          TopLeft="81.9999987781048,33.9999994933605" />
         <NodeLayout
-          Size="183,42"
-          Id="Package\DIM Compras\Destino de ADO NET"
-          TopLeft="523,93" />
+          Size="176.8,41.6"
+          Id="Package\DIM Producto\Destino de ADO NET"
+          TopLeft="297.999995559454,34.9999994784594" />
         <EdgeLayout
-          Id="Package\DIM Compras.Paths[Salida de origen de ADO NET]"
-          TopLeft="364,112">
+          Id="Package\DIM Producto.Paths[Salida de origen de ADO NET]"
+          TopLeft="254.799998778105,55.29999948591">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="159,0"
+              EndConnector="43.1999967813493,0"
               Start="0,0"
-              End="151.5,0">
+              End="35.6999967813493,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="151.5,0" />
+                    End="35.6999967813493,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2743,7 +3568,7 @@ ORDER BY CantidadReservaciones DESC, Estado;</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\DIM Proveedores\Origen de ADO NET">
+    design-time-name="Package\DIM Detalle_Compra\Origen de ADO NET">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2751,7 +3576,7 @@ ORDER BY CantidadReservaciones DESC, Estado;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\DIM Proveedores\Destino de ADO NET">
+    design-time-name="Package\DIM Detalle_Compra\Destino de ADO NET">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2759,7 +3584,7 @@ ORDER BY CantidadReservaciones DESC, Estado;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\DIM Compras\Origen de ADO NET">
+    design-time-name="Package\DIM Producto\Origen de ADO NET">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2767,7 +3592,7 @@ ORDER BY CantidadReservaciones DESC, Estado;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\DIM Compras\Destino de ADO NET">
+    design-time-name="Package\DIM Producto\Destino de ADO NET">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
